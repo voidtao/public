@@ -921,7 +921,7 @@ d-i mdadm/boot_degraded boolean true")
 				FormatDisk=$(echo -e "$RaidRecipes
 d-i partman-auto-raid/recipe string     \
     1  $2 0 ext4 /boot $AllDisksPart2 . \
-    $1 $2 0 ext4 /     $AllDisksPart3 .
+    $1 $2 0 xfs /     $AllDisksPart3 .
 d-i partman-auto/expert_recipe string multiraid ::                                                            \
     538  100 1076 free \$bootable{ } \$primary{ } method{ efi } \$iflabel{ gpt } \$reusemethod{ } format{ } . \
     1076 150 2152 raid               \$primary{ } method{ raid } .                                            \
@@ -934,7 +934,7 @@ d-i partman-partitioning/default_label string gpt")
 				FormatDisk=$(echo -e "$RaidRecipes
 d-i partman-auto-raid/recipe string     \
     1  $2 0 ext4 /boot $AllDisksPart1 . \
-    $1 $2 0 ext4 /     $AllDisksPart2 .
+    $1 $2 0 xfs /     $AllDisksPart2 .
 d-i partman-auto/expert_recipe string multiraid ::                 \
     1076 100 2152 raid \$bootable{ } \$primary{ } method{ raid } . \
     100  200 -1   raid               \$primary{ } method{ raid } .
