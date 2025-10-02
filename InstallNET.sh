@@ -662,6 +662,7 @@ function ipv4Calc() {
 #
 # $1 is "$ipAddr", $2 is "$ipGate"
 function ipv4SubnetCertificate() {
+    [[ -n "$ipPrefix" ]] && { tmpIpMask="$ipPrefix"; return; }
 	# If the IP and gateway are not in the same IPv4 A class, the prefix of netmask should be "1", transfer to whole IPv4 address is 128.0.0.1
 	# The range of 190.168.23.175/1 is 128.0.0.0 - 255.255.255.255, the gateway 169.254.0.1 can be included.
 	[[ $(echo $1 | cut -d'.' -f 1) != $(echo $2 | cut -d'.' -f 1) ]] && tmpIpMask="1"
