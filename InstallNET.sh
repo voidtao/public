@@ -180,6 +180,7 @@ while [[ $# -ge 1 ]]; do
 	--ip-mask)
 		shift
 		ipMask="$1"
+		USER_IP_MASK="$1"
 		shift
 		;;
 	--ip-gate)
@@ -554,7 +555,11 @@ function transferIPv4AddressFormat() {
 	# If this mistake has not be repaired, Debian installer will return error "untouchable gateway".
 	# DHCP IPv4 network(even IPv4 netmask is "32") may not be effected by this situation.
 	# The following consulted calculations are calculated by Vultr IPv4 subnet calculator, reference: https://www.vultr.com/resources/subnet-calculator/
-	ipv4SubnetCertificate "$1" "$2"
+	if [[ -n "$USER_IP_MASK" ]]; then
+		tmpIpMask="$USER_IP_MASK"
+	else
+		ipv4SubnetCertificate "$1" "$2"
+	fi
 	ipPrefix="$tmpIpMask"
 	ipMask=$(netmask "$tmpIpMask")
 	# Some servers' provided by Hetzner are so confused because the IPv4 configurations of them are static but they are not fitted with standard, here is a sample:
